@@ -1,24 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TMotorGUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aOa-oj-sDo">
+                                <rect key="frame" x="155.5" y="94" width="103" height="32"/>
+                                <segments>
+                                    <segment title="Left"/>
+                                    <segment title="Right"/>
+                                </segments>
+                                <connections>
+                                    <action selector="motorChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="uAR-V0-V1d"/>
+                                </connections>
+                            </segmentedControl>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hcU-2j-d1r">
+                                <rect key="frame" x="182.5" y="181" width="51" height="31"/>
+                                <connections>
+                                    <action selector="enableChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="FgO-rf-Cib"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wkp-VP-CXV">
+                                <rect key="frame" x="181" y="150" width="52" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemIndigoColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ebg-uc-Yp6">
+                                <rect key="frame" x="104" y="293" width="206" height="32"/>
+                                <segments>
+                                    <segment title="Position"/>
+                                    <segment title="Velocity"/>
+                                    <segment title="Torque"/>
+                                </segments>
+                                <connections>
+                                    <action selector="modeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="qAu-Jm-S8t"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jas-J5-Fpl">
+                                <rect key="frame" x="185" y="262" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemIndigoColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Motor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kX5-eh-Oab">
+                                <rect key="frame" x="184" y="64" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemIndigoColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setpoint (rad, rad/s, Nm)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ar2-us-LuL">
+                                <rect key="frame" x="112.5" y="354" width="189" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemIndigoColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bluetooth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCr-jC-naB">
+                                <rect key="frame" x="320" y="44" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="C38-jl-Wk4">
+                                <rect key="frame" x="48" y="383" width="318" height="31"/>
+                                <connections>
+                                    <action selector="setpointChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Jm8-8v-mXW"/>
+                                </connections>
+                            </slider>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jas-J5-Fpl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2eX-Sp-Eml"/>
+                            <constraint firstItem="wkp-VP-CXV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4cd-W3-coU"/>
+                            <constraint firstItem="C38-jl-Wk4" firstAttribute="top" secondItem="ar2-us-LuL" secondAttribute="bottom" constant="8" symbolic="YES" id="57h-Ja-Wfr"/>
+                            <constraint firstItem="ar2-us-LuL" firstAttribute="top" secondItem="ebg-uc-Yp6" secondAttribute="bottom" constant="30" id="5EZ-bZ-4Of"/>
+                            <constraint firstItem="aOa-oj-sDo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A68-Bk-Prf"/>
+                            <constraint firstItem="jas-J5-Fpl" firstAttribute="top" secondItem="hcU-2j-d1r" secondAttribute="bottom" constant="50" id="BGv-ns-mya"/>
+                            <constraint firstItem="aOa-oj-sDo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="Ch7-VG-OgK"/>
+                            <constraint firstItem="ebg-uc-Yp6" firstAttribute="top" secondItem="jas-J5-Fpl" secondAttribute="bottom" constant="10" id="Hee-DZ-I7a"/>
+                            <constraint firstItem="hcU-2j-d1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ik0-u9-hbm"/>
+                            <constraint firstItem="wkp-VP-CXV" firstAttribute="top" secondItem="aOa-oj-sDo" secondAttribute="bottom" constant="25" id="OQh-3U-9Px"/>
+                            <constraint firstItem="C38-jl-Wk4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="UfG-AV-XBs"/>
+                            <constraint firstItem="aOa-oj-sDo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="W6R-C2-a7X"/>
+                            <constraint firstItem="hcU-2j-d1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Y3V-lC-Qgg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="C38-jl-Wk4" secondAttribute="trailing" constant="50" id="YhH-Ge-g4H"/>
+                            <constraint firstItem="fCr-jC-naB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZAl-Vt-Q8e"/>
+                            <constraint firstItem="ebg-uc-Yp6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZWd-wv-K74"/>
+                            <constraint firstItem="hcU-2j-d1r" firstAttribute="top" secondItem="wkp-VP-CXV" secondAttribute="bottom" constant="10" id="ZgN-km-cdk"/>
+                            <constraint firstItem="kX5-eh-Oab" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jK6-cL-Csp"/>
+                            <constraint firstItem="ar2-us-LuL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jaq-nm-QxV"/>
+                            <constraint firstItem="C38-jl-Wk4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="owi-NS-teH"/>
+                            <constraint firstItem="fCr-jC-naB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="320" id="rgD-gR-DHU"/>
+                            <constraint firstItem="kX5-eh-Oab" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="rje-Pw-uRg"/>
+                            <constraint firstItem="wkp-VP-CXV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uY5-hm-fW5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fCr-jC-naB" secondAttribute="trailing" constant="20" id="vYy-ej-CMQ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bluetoothInd" destination="fCr-jC-naB" id="Ve7-xq-etn"/>
+                        <outlet property="enableSwitch" destination="hcU-2j-d1r" id="cU4-Jp-cZX"/>
+                        <outlet property="mode" destination="ebg-uc-Yp6" id="6N2-LR-SXa"/>
+                        <outlet property="motor" destination="aOa-oj-sDo" id="RgW-Js-M6i"/>
+                        <outlet property="setpoint" destination="C38-jl-Wk4" id="fNp-uQ-zLX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="102.89855072463769" y="77.678571428571431"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

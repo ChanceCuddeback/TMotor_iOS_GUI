@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>App uses bluetooth to communicate with a motor</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The peripheral that is connected will drive a motor</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

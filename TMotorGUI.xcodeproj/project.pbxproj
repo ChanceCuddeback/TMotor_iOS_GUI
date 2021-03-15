@@ -15,6 +15,7 @@
 		4CE0F13E25F69756001E0F2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CE0F13C25F69756001E0F2E /* LaunchScreen.storyboard */; };
 		4CE0F14925F69756001E0F2E /* TMotorGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0F14825F69756001E0F2E /* TMotorGUITests.swift */; };
 		4CE0F15425F69756001E0F2E /* TMotorGUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0F15325F69756001E0F2E /* TMotorGUIUITests.swift */; };
+		4CE0F16525F69CDA001E0F2E /* TMotorPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0F16425F69CD9001E0F2E /* TMotorPeripheral.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		4CE0F14F25F69756001E0F2E /* TMotorGUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMotorGUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE0F15325F69756001E0F2E /* TMotorGUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMotorGUIUITests.swift; sourceTree = "<group>"; };
 		4CE0F15525F69756001E0F2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CE0F16425F69CD9001E0F2E /* TMotorPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMotorPeripheral.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +101,10 @@
 		4CE0F13025F69755001E0F2E /* TMotorGUI */ = {
 			isa = PBXGroup;
 			children = (
-				4CE0F13125F69755001E0F2E /* AppDelegate.swift */,
+				4CE0F16925F835FF001E0F2E /* Models */,
+				4CE0F16A25F83614001E0F2E /* ViewControllers */,
 				4CE0F13325F69755001E0F2E /* SceneDelegate.swift */,
-				4CE0F13525F69755001E0F2E /* ViewController.swift */,
+				4CE0F13125F69755001E0F2E /* AppDelegate.swift */,
 				4CE0F13725F69755001E0F2E /* Main.storyboard */,
 				4CE0F13A25F69756001E0F2E /* Assets.xcassets */,
 				4CE0F13C25F69756001E0F2E /* LaunchScreen.storyboard */,
@@ -126,6 +129,22 @@
 				4CE0F15525F69756001E0F2E /* Info.plist */,
 			);
 			path = TMotorGUIUITests;
+			sourceTree = "<group>";
+		};
+		4CE0F16925F835FF001E0F2E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4CE0F16425F69CD9001E0F2E /* TMotorPeripheral.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4CE0F16A25F83614001E0F2E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4CE0F13525F69755001E0F2E /* ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +279,7 @@
 			files = (
 				4CE0F13625F69755001E0F2E /* ViewController.swift in Sources */,
 				4CE0F13225F69755001E0F2E /* AppDelegate.swift in Sources */,
+				4CE0F16525F69CDA001E0F2E /* TMotorPeripheral.swift in Sources */,
 				4CE0F13425F69755001E0F2E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
