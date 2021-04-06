@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ebg-uc-Yp6">
-                                <rect key="frame" x="104" y="293" width="206" height="32"/>
+                                <rect key="frame" x="104" y="268" width="206" height="32"/>
                                 <segments>
                                     <segment title="Position"/>
                                     <segment title="Velocity"/>
@@ -50,7 +50,7 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jas-J5-Fpl">
-                                <rect key="frame" x="185" y="262" width="44" height="21"/>
+                                <rect key="frame" x="185" y="237" width="44" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
                                 <nil key="highlightedColor"/>
@@ -62,7 +62,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setpoint (rad, rad/s, Nm)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ar2-us-LuL">
-                                <rect key="frame" x="112.5" y="354" width="189" height="21"/>
+                                <rect key="frame" x="112.5" y="329" width="189" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
                                 <nil key="highlightedColor"/>
@@ -70,11 +70,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bluetooth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCr-jC-naB">
                                 <rect key="frame" x="320" y="44" width="74" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="C38-jl-Wk4">
-                                <rect key="frame" x="48" y="383" width="318" height="31"/>
+                                <rect key="frame" x="48" y="358" width="318" height="31"/>
                                 <connections>
                                     <action selector="setpointChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Jm8-8v-mXW"/>
                                 </connections>
@@ -88,7 +88,7 @@
                             <constraint firstItem="C38-jl-Wk4" firstAttribute="top" secondItem="ar2-us-LuL" secondAttribute="bottom" constant="8" symbolic="YES" id="57h-Ja-Wfr"/>
                             <constraint firstItem="ar2-us-LuL" firstAttribute="top" secondItem="ebg-uc-Yp6" secondAttribute="bottom" constant="30" id="5EZ-bZ-4Of"/>
                             <constraint firstItem="aOa-oj-sDo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A68-Bk-Prf"/>
-                            <constraint firstItem="jas-J5-Fpl" firstAttribute="top" secondItem="hcU-2j-d1r" secondAttribute="bottom" constant="50" id="BGv-ns-mya"/>
+                            <constraint firstItem="jas-J5-Fpl" firstAttribute="top" secondItem="hcU-2j-d1r" secondAttribute="bottom" constant="25" id="BGv-ns-mya"/>
                             <constraint firstItem="aOa-oj-sDo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="Ch7-VG-OgK"/>
                             <constraint firstItem="ebg-uc-Yp6" firstAttribute="top" secondItem="jas-J5-Fpl" secondAttribute="bottom" constant="10" id="Hee-DZ-I7a"/>
                             <constraint firstItem="hcU-2j-d1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ik0-u9-hbm"/>
@@ -125,6 +125,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

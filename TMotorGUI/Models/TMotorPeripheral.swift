@@ -7,6 +7,8 @@
 import Foundation
 import CoreBluetooth
 
+var RSSIConnStrength:NSNumber = -70
+
 //Modified my previous framework, after the nRFBlinky framework
 extension Double: DataConvertible { }
 extension Int: DataConvertible { }
@@ -30,16 +32,9 @@ extension DataConvertible where Self: ExpressibleByIntegerLiteral {
     }
 }
 
-
 protocol TMotorDelegate {
     func TMotorDidConnect()
     func TMotorDidDisconnect()
-}
-
-enum modes:Int {
-    case position = 0
-    case velocity = 1
-    case torque   = 2
 }
 
 class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -50,13 +45,14 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     //MARK: Singleton
-    static let shared = TMotorPeripheral();
+    //static let shared = TMotorPeripheral();
         
     //MARK: UUIDS
     public static let TMotorServiceUUID = CBUUID.init(string: "12341234-1212-EFDE-1523-785FEABCD120")
     public static let enableCharUUID    = CBUUID.init(string: "12341234-1212-EFDE-1523-785FEABCD121")
     public static let setpointCharUUID  = CBUUID.init(string: "12341234-1212-EFDE-1523-785FEABCD122")
     public static let modeCharUUID      = CBUUID.init(string: "12341234-1212-EFDE-1523-785FEABCD123")
+    public static let motorCharUUID     = CBUUID.init(string: "12341234-1212-EFDE-1523-785FEABCD124")
     
     //MARK: Properties
     var LEPeripheral                            : [CBPeripheral]!
@@ -64,7 +60,7 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private var connectedPeripheral             : CBPeripheral?
     private let name = "TMOTOR"
     
-    public static var delegate: TMotorDelegate?
+    public var controllerDelegate: TMotorDelegate!
     
     //MARK: Computed vars
     private var isConnected: Bool {
@@ -75,6 +71,7 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private var enableChar  : CBCharacteristic?
     private var setpointChar: CBCharacteristic?
     private var modeChar    : CBCharacteristic?
+    private var motorChar   : CBCharacteristic?
     
     
     //MARK: Public API
@@ -91,20 +88,37 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     //MARK: TMotor API
-    public func changeMode(to: modes) {
-        guard connectedPeripheral != nil else {return}
-        if let modeChar = modeChar {
-            if modeChar.properties.contains(.write) {
-                print("Changing mode characteristic...")
-                let data = to.rawValue.data
-                connectedPeripheral!.writeValue(data, for: modeChar, type: .withoutResponse)
-            } else {
-                print("Can't change mode!")
-            }
-        }
+    public func updateMode(to: Mode) -> Bool{
+        return charUpdateStatus(forChar: modeChar, with: to.rawValue.data)
+    }
+    
+    public func updateSetpoint(to: Double) -> Bool {
+        return charUpdateStatus(forChar: setpointChar, with: to.data)
+    }
+    
+    public func updateEnableStatus(to: Bool) -> Bool {
+        var intBool: Int = 0
+        if to {intBool = 1}
+        return charUpdateStatus(forChar: enableChar, with: intBool.data)
+    }
+    
+    public func updateSelectedMotor(to: Motor) -> Bool {
+        return charUpdateStatus(forChar: motorChar, with: to.rawValue.data)
     }
     
     //MARK: Implementation
+    private func charUpdateStatus(forChar: CBCharacteristic?, with: Data) -> Bool {
+        guard connectedPeripheral != nil else {return false}
+        if let char = forChar {
+            let props = char.properties
+            if props.contains(.write) {
+                connectedPeripheral!.writeValue(with, for: char, type: .withResponse)
+                return true
+            }
+        }
+        return false
+    }
+    
     //The function to begin looking for Peripherals
     func startScan(withService service: [CBUUID]? = nil) {
         centralManager.scanForPeripherals(withServices: service, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
@@ -113,7 +127,6 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     //MARK: CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("State updated to \(central.state)")
         if central.state == .poweredOn {
             startScan(withService: [TMotorPeripheral.TMotorServiceUUID])
             print("Scanning")
@@ -121,14 +134,13 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     //Function that handles when a peripheral is discoverd during scanning
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("Found: \(peripheral)")
         if LEPeripheral == nil {
             LEPeripheral = [peripheral]
         }
         else if !LEPeripheral.contains(peripheral) {
             LEPeripheral.append(peripheral)
         }
-        if (RSSI.compare(-60) == .orderedDescending) && peripheral.name == name {
+        if (RSSI.compare(RSSIConnStrength) == .orderedDescending) && peripheral.name == name {
             print("Connecting to: \(peripheral)")
             centralManager.connect(peripheral, options: nil)
         }
@@ -138,13 +150,13 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         connectedPeripheral = peripheral
         peripheral.delegate = self
         peripheral.discoverServices([TMotorPeripheral.TMotorServiceUUID])
-        print("Connected!")
-        //Horrible code, but this is for an ME Capstone
-        //ViewController.shared.bluetoothInd.textColor = .systemIndigo
+        controllerDelegate.TMotorDidConnect()
+        
     }
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        connectedPeripheral = nil
+        controllerDelegate.TMotorDidDisconnect()
         startScan()
-        //ViewController.shared.bluetoothInd.textColor = .black
     }
     
     //MARK: CBPeripheralDelegate
@@ -182,6 +194,9 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             case char.uuid.isEqual(TMotorPeripheral.modeCharUUID):
                 modeChar = char
                 print("Found modeChar")
+            case char.uuid.isEqual(TMotorPeripheral.motorCharUUID):
+                motorChar = char
+                print("Found motorChar")
             default:
                 print("Unkown char!")
             }
@@ -193,8 +208,4 @@ class TMotorPeripheral: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         guard characteristic.value != nil else {return}
         print("Got \(characteristic.value!) from \(characteristic)")
     }
-    
-    
-    
-    
 }
